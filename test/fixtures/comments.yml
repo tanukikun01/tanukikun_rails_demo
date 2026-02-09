@@ -1,0 +1,9 @@
+one:
+  body: Nice post
+  user: two
+  post: one
+
+two:
+  body: Thanks!
+  user: one
+  post: one
