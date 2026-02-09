@@ -3,4 +3,17 @@
     <strong><%= comment.user&.name || "Unknown" %>:</strong>
     <%= comment.body %>
   </p>
+
+  <p><strong>Likes:</strong> <%= comment.likes.count %></p>
+
+  <%= form_with url: likes_path, method: :post, local: true do %>
+    <%= hidden_field_tag "like[user_id]", params[:user_id] %>
+    <%= hidden_field_tag "like[likeable_type]", "Comment" %>
+    <%= hidden_field_tag "like[likeable_id]", comment.id %>
+    <div>
+      <%= label_tag :user_id, "User" %>
+      <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :name, params[:user_id]), include_blank: true, onchange: "this.form.querySelector('input[name=\\\"like[user_id]\\\"]') .value=this.value" %>
+    </div>
+    <%= submit_tag "Like" %>
+  <% end %>
 </div>
